@@ -27,10 +27,10 @@ class DatabaseService {
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE student (
+      CREATE TABLE students (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        age TEXT NOT NULL,
+        age INTEGER NOT NULL,
         department TEXT NOT NULL
       )
     ''');
@@ -41,7 +41,7 @@ class DatabaseService {
   Future<int> insertStudentProfile(StudentModel studentModel) async {
     final db = await database;
     int id = await db.insert(
-      'student',
+      'students',
       studentModel.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -51,8 +51,8 @@ class DatabaseService {
   Future<List<StudentModel>> getAllStudents() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
-      'student',
-      orderBy: 'createdDate DESC',
+      'students',
+      // orderBy: 'createdDate DESC',
     );
     return maps.map((json) => StudentModel.fromMap(json)).toList();
   }
@@ -60,14 +60,14 @@ class DatabaseService {
   // Future<int> updateStudent(StudentModel studentModel) async {
   //   final db = await database;
   //   return await db.update(
-  //     'student',
+  //     'students',
   //     studentModel.toMap(),
   //     where: 'id = ?',
   //     whereArgs: [studentModel.id],
   //   );
   // }
 
-  Future<int> deleteProfile(int id) async {
+  Future<int> deleteStudentProfile(int id) async {
     final db = await database;
     return await db.delete('v', where: 'id = ?', whereArgs: [id]);
   }

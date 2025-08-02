@@ -1,10 +1,15 @@
 class StudentModel {
   final int? id;
-  final String? name;
-  final int? age;
-  final String? department;
+  final String name;
+  final int age;
+  final String department;
 
-  StudentModel({this.id, this.name, this.age, this.department});
+  StudentModel({
+    this.id,
+    required this.name,
+    required this.age,
+    required this.department,
+  });
   //  For SQLite
   Map<String, dynamic> toMap() => {
     'id': id,

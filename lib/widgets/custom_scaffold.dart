@@ -28,11 +28,7 @@ class CustomScaffold extends StatelessWidget {
         elevation: 0.2,
         title: Text(
           title ?? '',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: Colors.green,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
       body: SafeArea(child: child),

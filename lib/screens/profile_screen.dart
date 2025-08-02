@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:test_app/models/student_model.dart';
+import 'package:test_app/services/database_service.dart';
 import 'package:test_app/widgets/custom_scaffold.dart';
 import 'package:test_app/widgets/custom_text_form_field.dart';
 
@@ -27,10 +29,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScaffold(
+        title: 'Add Profile',
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             children: [
+              CircleAvatar(
+                radius: 90,
+                backgroundColor: Colors.grey[200],
+                child: FlutterLogo(size: 100),
+              ),
+              SizedBox(height: 20),
               CustomTextFormField(
                 controller: _nameController,
                 hintText: 'Enter your name',
@@ -39,6 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: 10),
               CustomTextFormField(
                 controller: _ageController,
+                keyboardType: TextInputType.number,
                 hintText: 'Enter your age',
                 prefixIcon: Icons.person,
               ),
@@ -50,8 +60,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
+                onPressed: () async {
+                  _saveProfile();
                 },
                 child: Text(
                   'Save profile',
@@ -66,5 +76,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _saveProfile() async {
+    if (_nameController.text.isEmpty ||
+        _ageController.text.isEmpty ||
+        _departmentController.text.isEmpty) {
+      debugPrint('\n\n student: data empty \n\n');
+      return;
+    }
+    final studentName = _nameController.text.trim();
+    final studentAge = int.parse(_ageController.text.trim());
+    final studentDepartment = _departmentController.text.trim();
+    final studentModel = StudentModel(
+      name: studentName,
+      age: studentAge,
+      department: studentDepartment,
+    );
+    final int id = await DatabaseService.instance.insertStudentProfile(
+      studentModel,
+    );
+    debugPrint('\n\nID: $id \n\n');
+
+    back();
+  }
+
+  void back() {
+    Navigator.pop(context);
   }
 }
