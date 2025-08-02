@@ -42,7 +42,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                     "Age",
                     style: GoogleFonts.poppins(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(height: 10),
@@ -50,7 +50,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                     "department",
                     style: GoogleFonts.poppins(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],

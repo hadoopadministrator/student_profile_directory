@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:test_app/widgets/custom_scaffold.dart';
 import 'package:test_app/widgets/custom_text_form_field.dart';
 
@@ -52,7 +53,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Save profile'),
+                child: Text(
+                  'Save profile',
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
