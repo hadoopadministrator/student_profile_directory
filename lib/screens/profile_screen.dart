@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               CircleAvatar(
                 radius: 90,
-                backgroundColor: Colors.grey[200],
+                // backgroundColor: Colors.grey[200],
                 child: FlutterLogo(size: 100),
               ),
               SizedBox(height: 20),

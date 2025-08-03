@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomScaffold extends StatelessWidget {
   final Widget child;
@@ -19,16 +20,15 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         actions: actions,
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         // automaticallyImplyLeading: automaticallyImplyLeading,
         elevation: 0.2,
         title: Text(
           title ?? '',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
       body: SafeArea(child: child),
