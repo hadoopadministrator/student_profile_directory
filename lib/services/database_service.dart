@@ -69,7 +69,7 @@ class DatabaseService {
 
   Future<int> deleteStudentProfile(int id) async {
     final db = await database;
-    return await db.delete('v', where: 'id = ?', whereArgs: [id]);
+    return await db.delete('students', where: 'id = ?', whereArgs: [id]);
   }
 
   // Future<void> deleteAllStudents() async {

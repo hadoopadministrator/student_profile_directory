@@ -34,40 +34,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             children: [
-              CircleAvatar(
-                radius: 90,
-                // backgroundColor: Colors.grey[200],
-                child: FlutterLogo(size: 100),
-              ),
+              CircleAvatar(radius: 68, child: FlutterLogo(size: 68)),
               SizedBox(height: 20),
               CustomTextFormField(
                 controller: _nameController,
                 hintText: 'Enter your name',
-                prefixIcon: Icons.person,
+                prefixIcon: Icons.person_2_outlined,
               ),
               SizedBox(height: 10),
               CustomTextFormField(
                 controller: _ageController,
                 keyboardType: TextInputType.number,
                 hintText: 'Enter your age',
-                prefixIcon: Icons.person,
+                prefixIcon: Icons.numbers_outlined,
               ),
               SizedBox(height: 10),
               CustomTextFormField(
                 controller: _departmentController,
                 hintText: 'Enter your department name',
-                prefixIcon: Icons.person,
+                prefixIcon: Icons.school_outlined,
               ),
               SizedBox(height: 24),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  elevation: 10,
+                ),
                 onPressed: () async {
                   _saveProfile();
                 },
                 child: Text(
                   'Save profile',
                   style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -82,8 +82,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (_nameController.text.isEmpty ||
         _ageController.text.isEmpty ||
         _departmentController.text.isEmpty) {
-      debugPrint('\n\n student: data empty \n\n');
-      return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill in all fields before saving the profile.'),
+        ),
+      );
     }
     final studentName = _nameController.text.trim();
     final studentAge = int.parse(_ageController.text.trim());
@@ -96,12 +99,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final int id = await DatabaseService.instance.insertStudentProfile(
       studentModel,
     );
-    debugPrint('\n\nID: $id \n\n');
+    debugPrint('\n\nCreated Student ID: $id\n\n');
 
     back();
   }
 
   void back() {
-    Navigator.pop(context);
+    if (context.mounted) Navigator.pop(context);
   }
 }

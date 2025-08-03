@@ -10,7 +10,7 @@ class StudentModel {
     required this.age,
     required this.department,
   });
-  //  For SQLite
+
   Map<String, dynamic> toMap() => {
     'id': id,
     'name': name,
@@ -18,7 +18,6 @@ class StudentModel {
     'department': department,
   };
 
-  //  For SQLite
   factory StudentModel.fromMap(Map<String, dynamic> map) => StudentModel(
     id: map['id'],
     name: map['name'],

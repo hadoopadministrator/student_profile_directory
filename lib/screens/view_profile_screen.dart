@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:test_app/models/student_model.dart';
+import 'package:test_app/services/database_service.dart';
+import 'package:test_app/services/shared_prefs_service.dart';
 import 'package:test_app/widgets/custom_scaffold.dart';
 
 class ViewProfileScreen extends StatelessWidget {
@@ -19,16 +21,12 @@ class ViewProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircleAvatar(
-                    radius: 90,
-                    // backgroundColor: Colors.white,
-                    child: FlutterLogo(size: 100),
-                  ),
+                  CircleAvatar(radius: 68, child: FlutterLogo(size: 68)),
                   SizedBox(height: 20),
                   Text(
                     "Name: ${student.name}",
                     style: GoogleFonts.poppins(
-                      fontSize: 20,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -36,16 +34,66 @@ class ViewProfileScreen extends StatelessWidget {
                   Text(
                     "Age: ${student.age}",
                     style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   SizedBox(height: 10),
                   Text(
                     "Department: ${student.department}",
                     style: GoogleFonts.poppins(
-                      fontSize: 20,
+                      fontSize: 12,
                       fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 18,
+                      ),
+                      elevation: 2,
+                    ),
+                    onPressed: () async {
+                      final confirm = await showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: const Text("Delete Student"),
+                          content: const Text(
+                            "Are you sure you want to delete this student?",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, false),
+                              child: const Text("Cancel"),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, true),
+                              child: const Text("Delete"),
+                            ),
+                          ],
+                        ),
+                      );
+                      if (confirm == true) {
+                        await DatabaseService().deleteStudentProfile(
+                          student.id!,
+                        );
+                        debugPrint('Deleted student ID: ${student.id!}');
+                        final remaining = await DatabaseService()
+                            .getAllStudents();
+                        if (remaining.isEmpty) {
+                          await SharedPrefsService.clearLastViewed();
+                        }
+                        if (context.mounted) Navigator.pop(context);
+                      }
+                    },
+                    child: Text(
+                      'Delete profile',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],

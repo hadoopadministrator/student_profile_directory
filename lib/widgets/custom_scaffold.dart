@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomScaffold extends StatelessWidget {
   final Widget child;
   final String? title;
-  // final bool automaticallyImplyLeading;
   final List<Widget>? actions;
   final Widget? floatingActionButton;
 
@@ -12,7 +11,6 @@ class CustomScaffold extends StatelessWidget {
     super.key,
     required this.child,
     this.title,
-    // required this.automaticallyImplyLeading,
     this.actions,
     this.floatingActionButton,
   });
@@ -20,11 +18,8 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
       appBar: AppBar(
         actions: actions,
-        // backgroundColor: Colors.white,
-        // automaticallyImplyLeading: automaticallyImplyLeading,
         elevation: 0.2,
         title: Text(
           title ?? '',
