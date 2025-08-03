@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:test_app/models/student_model.dart';
-import 'package:test_app/services/database_service.dart';
-import 'package:test_app/widgets/custom_scaffold.dart';
-import 'package:test_app/widgets/custom_text_form_field.dart';
+import 'package:campus_connect/models/student_model.dart';
+import 'package:campus_connect/services/database_service.dart';
+import 'package:campus_connect/widgets/custom_scaffold.dart';
+import 'package:campus_connect/widgets/custom_text_form_field.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

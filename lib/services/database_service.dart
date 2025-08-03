@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:test_app/models/student_model.dart';
+import 'package:campus_connect/models/student_model.dart';
 
 class DatabaseService {
   DatabaseService._privateConstructor();

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:test_app/models/student_model.dart';
-import 'package:test_app/screens/profile_screen.dart';
-import 'package:test_app/screens/view_profile_screen.dart';
-import 'package:test_app/services/database_service.dart';
-import 'package:test_app/services/shared_prefs_service.dart';
-import 'package:test_app/widgets/custom_scaffold.dart';
+import 'package:campus_connect/models/student_model.dart';
+import 'package:campus_connect/screens/profile_screen.dart';
+import 'package:campus_connect/screens/view_profile_screen.dart';
+import 'package:campus_connect/services/database_service.dart';
+import 'package:campus_connect/services/shared_prefs_service.dart';
+import 'package:campus_connect/widgets/custom_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

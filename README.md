@@ -1,6 +1,14 @@
-# test_app
+# CampusConnect – Student Profile Directory
 
-A new Flutter project.
+A Flutter application that allows users to create, view, and manage student profiles locally using SQLite. It also remembers the last viewed student using SharedPreferences.
+
+## Features
+
+- Add student profile with name, age, department, and (optional) profile image.
+- View full details of a student.
+- Delete student profile with confirmation dialog.
+- Stores data locally using SQLite.
+- Remembers last viewed student using SharedPreferences.
 
 ## Getting Started
 
