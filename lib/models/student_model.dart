@@ -3,12 +3,14 @@ class StudentModel {
   final String name;
   final int age;
   final String department;
+  final String? imagePath;
 
   StudentModel({
     this.id,
     required this.name,
     required this.age,
     required this.department,
+    this.imagePath
   });
 
   Map<String, dynamic> toMap() => {
@@ -16,6 +18,7 @@ class StudentModel {
     'name': name,
     'age': age,
     'department': department,
+    'imagePath':imagePath,
   };
 
   factory StudentModel.fromMap(Map<String, dynamic> map) => StudentModel(
@@ -23,5 +26,6 @@ class StudentModel {
     name: map['name'],
     age: map['age'],
     department: map['department'],
+    imagePath: map['imagePath'],
   );
 }

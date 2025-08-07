@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:campus_connect/models/student_model.dart';
@@ -21,7 +23,20 @@ class ViewProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircleAvatar(radius: 68, child: FlutterLogo(size: 68)),
+                  CircleAvatar(
+                    radius: 68,
+                    backgroundColor: Colors.grey.shade200,
+                    backgroundImage:
+                        student.imagePath != null &&
+                            student.imagePath!.isNotEmpty
+                        ? FileImage(File(student.imagePath!))
+                        : null,
+                    child:
+                        (student.imagePath == null ||
+                            student.imagePath!.isEmpty)
+                        ? FlutterLogo(size: 68)
+                        : null,
+                  ),
                   SizedBox(height: 20),
                   Text(
                     "Name: ${student.name}",

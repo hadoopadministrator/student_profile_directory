@@ -31,7 +31,8 @@ class DatabaseService {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         age INTEGER NOT NULL,
-        department TEXT NOT NULL
+        department TEXT NOT NULL,
+        imagePath TEXT
       )
     ''');
   }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:campus_connect/models/student_model.dart';
@@ -105,8 +107,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             horizontal: 10,
                           ),
                           leading: CircleAvatar(
-                            radius: 34,
-                            child: FlutterLogo(size: 34),
+                             radius: 34,
+  backgroundImage: student.imagePath != null && student.imagePath!.isNotEmpty
+      ? FileImage(File(student.imagePath!))
+      : null,
+  child: (student.imagePath == null || student.imagePath!.isEmpty)
+      ? FlutterLogo(size: 34)
+      : null,
                           ),
                           title: Text(
                             student.name,

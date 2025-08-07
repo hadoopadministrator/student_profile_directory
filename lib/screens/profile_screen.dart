@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:campus_connect/models/student_model.dart';
 import 'package:campus_connect/services/database_service.dart';
 import 'package:campus_connect/widgets/custom_scaffold.dart';
 import 'package:campus_connect/widgets/custom_text_form_field.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -34,7 +37,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             children: [
-              CircleAvatar(radius: 68, child: FlutterLogo(size: 68)),
+              Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 90,
+                    backgroundImage: _imageFile != null
+                        ? FileImage(_imageFile!)
+                        : null,
+                    child: _imageFile == null
+                        ? const FlutterLogo(size: 70)
+                        : null,
+                  ),
+
+                  Positioned(
+                    top: 12,
+                    right: 2,
+                    child: InkWell(
+                      onTap: () {
+                        _showDialog();
+                      },
+                      child: Icon(Icons.edit, size: 40, color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(height: 20),
               CustomTextFormField(
                 controller: _nameController,
@@ -91,10 +117,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final studentName = _nameController.text.trim();
     final studentAge = int.parse(_ageController.text.trim());
     final studentDepartment = _departmentController.text.trim();
+    final profilePath = _imageFile?.path ;
     final studentModel = StudentModel(
       name: studentName,
       age: studentAge,
       department: studentDepartment,
+    imagePath: profilePath,
     );
     final int id = await DatabaseService.instance.insertStudentProfile(
       studentModel,
@@ -106,5 +134,78 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void back() {
     if (context.mounted) Navigator.pop(context);
+  }
+
+  File? _imageFile;
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final picker = ImagePicker();
+      final pickedImage = await picker.pickImage(source: source);
+      if (pickedImage != null) {
+        setState(() {
+          _imageFile = File(pickedImage.path);
+        });
+      }
+    } catch (ex) {
+      debugPrint('\n\nException: $ex\n\n');
+    }
+  }
+
+  void _showDialog() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Choose Image'),
+          actions: [
+            TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('Cancel'),
+                ),
+          ],
+          content: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                InkWell(
+                  onTap: () {
+                    _pickImage(ImageSource.camera);
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.camera_alt_rounded, size: 24),
+                      SizedBox(width: 10),
+                      Text('Camera'),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                InkWell(
+                  onTap: () {
+                    _pickImage(ImageSource.gallery);
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.photo, size: 24),
+                      SizedBox(width: 10),
+                      Text('Gallery'),
+                    ],
+                  ),
+                ),
+                
+                
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

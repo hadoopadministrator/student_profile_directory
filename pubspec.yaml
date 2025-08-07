@@ -15,6 +15,8 @@ dependencies:
   sqflite: ^2.4.2
   shared_preferences: ^2.5.3
   path: ^1.9.1
+  image_picker: ^1.1.2
+  
   
 
 dev_dependencies:
@@ -22,6 +24,12 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21
 
 flutter:
 
